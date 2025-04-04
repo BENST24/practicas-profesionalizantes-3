@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        table {
+            background-color: black;
+        }
+        .buttonN {
+            background-color: blue;
+            color: white;
+            width: 100%;
+        }
+        .buttonP {
+            background-color: blue;
+            color: white;
+            width: 100%;
+        }
+        .buttonS {
+            background-color: green;
+            color: white;
+            width: 100%;
+        }
+        .buttonR {
+            background-color: goldenrod;
+            color: white;
+            width: 100%;
+        }
+        .buttonB {
+            background-color: red;
+            color: white;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <!-- agregar ID a los buttones para darle funcionalidad en el script, agregarle ID = display al input -->
+        <tr> <td colspan="4"> <input id="display" type="text"> </td> </tr>
+        <tr> <td> <button id="button1" class="buttonN" >1</button> </td> <td> <button id="button2" class="buttonN" >2</button> </td> <td> <button id="button3" class="buttonN" >3</button> </td> <td> <button id="buttonSuma" class="buttonS">+</button> </td> </tr>
+        <tr> <td> <button id="button4" class="buttonN" >4</button> </td> <td> <button id="button5" class="buttonN" >5</button> </td> <td> <button id="button6" class="buttonN" >6</button> </td> <td> <button id="buttonResta" class="buttonS">-</button> </td> </tr>
+        <tr> <td> <button id="button7" class="buttonN" >7</button> </td> <td> <button id="button8" class="buttonN" >8</button> </td> <td> <button id="button9" class="buttonN" >9</button> </td> <td> <button id="buttonMul" class="buttonS">*</button> </td> </tr>
+        <tr> <td> <button id="button0" class="buttonN" >0</button> </td> <td> <button id="buttonPunto" class="buttonP" >.</button> </td> <td> <button id="buttonResul" class="buttonR" >=</button> </td> <td> <button id="buttonDiv" class="buttonS">/</button> </td> </tr>
+        <tr> <td colspan="4"> <button id="buttonBorrar" class="buttonB" >Borrar</button> </td> </tr>
+    </table>
+
+</body>
+<script>
+    function onButton1Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "1"
+    }
+
+    function onButton2Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "2"
+    }
+
+    function onButton3Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "3"
+    }
+
+    function onButton4Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "4"
+    }
+
+    function onButton5Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "5"
+    }
+
+    function onButton6Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "6"
+    }
+
+    function onButton7Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "7"
+    }
+
+    function onButton8Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "8"
+    }
+
+    function onButton9Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "9"
+    }
+
+    function onButton0Click()
+    {
+        let display = document.getElementById('display');
+        display.value += "0"
+    }
+
+    function onButtonPuntoClick()
+    {
+        let display = document.getElementById('display');
+        display.value += "."
+    }
+
+    function onButtonResulClick()
+    {
+        let display = document.getElementById('display');
+            try 
+            {
+                display.value = eval(display.value); // Evalúa la expresión matemática
+            } 
+            catch 
+            {
+                display.value = "Error";
+            }
+    }
+
+    function onButtonSumaClick()
+    {
+        let display = document.getElementById('display');
+        display.value += "+"
+    }
+
+    function onButtonRestaClick()
+    {
+        let display = document.getElementById('display');
+        display.value += "-"
+    }
+
+    function onButtonMulClick()
+    {
+        let display = document.getElementById('display');
+        display.value += "*"
+    }
+
+    function onButtonDivClick()
+    {
+        let display = document.getElementById('display');
+        display.value += "/"
+    }
+
+    function onButtonBorrarClick()
+    {
+        let display = document.getElementById('display');
+        display.value = " "
+    }
+
+    let button1 = document.getElementById('button1');
+    button1.onclick = onButton1Click;
+
+    let button2 = document.getElementById('button2');
+    button2.onclick = onButton2Click;
+
+    let button3 = document.getElementById('button3');
+    button3.onclick = onButton3Click;
+
+    let button4 = document.getElementById('button4');
+    button4.onclick = onButton4Click;
+
+    let button5 = document.getElementById('button5');
+    button5.onclick = onButton5Click;
+
+    let button6 = document.getElementById('button6');
+    button6.onclick = onButton6Click;
+
+    let button7 = document.getElementById('button7');
+    button7.onclick = onButton7Click;
+
+    let button8 = document.getElementById('button8');
+    button8.onclick = onButton8Click;
+
+    let button9 = document.getElementById('button9');
+    button9.onclick = onButton9Click;
+
+    let button0 = document.getElementById('button0');
+    button0.onclick = onButton0Click;
+
+    let buttonPunto = document.getElementById('buttonPunto');
+    buttonPunto.onclick = onButtonPuntoClick;
+
+    let buttonResul = document.getElementById('buttonResul');
+    buttonResul.onclick = onButtonResulClick;
+
+    let buttonSuma = document.getElementById('buttonSuma');
+    buttonSuma.onclick = onButtonSumaClick;
+
+    let buttonResta = document.getElementById('buttonResta');
+    buttonResta.onclick = onButtonRestaClick;
+
+    let buttonMul = document.getElementById('buttonMul');
+    buttonMul.onclick = onButtonMulClick;
+
+    let buttonDiv = document.getElementById('buttonDiv');
+    buttonDiv.onclick = onButtonDivClick;
+    
+    let buttonBorrar = document.getElementById('buttonBorrar');
+    buttonBorrar.onclick = onButtonBorrarClick;
+</script>
+</html>

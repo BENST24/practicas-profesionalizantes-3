@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        table {
+            background-color: black;
+        }
+        .botonN {
+            background-color: blue;
+            color: white;
+            width: 100%;
+        }
+        .botonP {
+            background-color: blue;
+            color: white;
+            width: 100%;
+        }
+        .botonS {
+            background-color: green;
+            color: white;
+            width: 100%;
+        }
+        .botonR {
+            background-color: goldenrod;
+            color: white;
+            width: 100%;
+        }
+        .botonB {
+            background-color: red;
+            color: white;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <!-- agregar ID a los botones para darle funcionalidad en el script, agregarle ID = display al input -->
+        <tr> <td colspan="4"> <input type="text"> </td> </tr>
+        <tr> <td> <button class="botonN" >1</button> </td> <td> <button class="botonN" >2</button> </td> <td> <button class="botonN" >3</button> </td> <td> <button class="botonS">+</button> </td> </tr>
+        <tr> <td> <button class="botonN" >4</button> </td> <td> <button class="botonN" >5</button> </td> <td> <button class="botonN" >6</button> </td> <td> <button class="botonS">-</button> </td> </tr>
+        <tr> <td> <button class="botonN" >7</button> </td> <td> <button class="botonN" >8</button> </td> <td> <button class="botonN" >9</button> </td> <td> <button class="botonS">*</button> </td> </tr>
+        <tr> <td> <button class="botonN" >0</button> </td> <td> <button class="botonP" >.</button> </td> <td> <button class="botonR" >=</button> </td> <td> <button class="botonS">/</button> </td> </tr>
+        <tr> <td colspan="4"> <button class="botonB" >Borrar</button> </td> </tr>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let pantalla = document.querySelector("input");
+            let botones = document.querySelectorAll("button");
+
+            botones.forEach(boton => {
+                boton.addEventListener("click", function () {
+                    let valor = boton.textContent;
+
+                    if (valor === "=") {
+                        try {
+                            pantalla.value = eval(pantalla.value); // Evalúa la expresión matemática
+                        } catch {
+                            pantalla.value = "Error";
+                        }
+                    } else if (valor === "Borrar") {
+                        pantalla.value = ""; // Limpia la pantalla
+                    } else {
+                        pantalla.value += valor; // Agrega el valor del botón a la pantalla
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
