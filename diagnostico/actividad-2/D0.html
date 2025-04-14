@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        let options =
+        {
+            tab: new Map
+        }
+
+        let configurationKeyboard = new Map;
+        let configurationKeyboardMovement = new Map;
+        let configurationKeyboardCombat = new Map;
+
+        configurationKeyboardMovement = {'Move forward': 'w'} 
+        configurationKeyboardMovement = {'Move back': 's'} 
+        configurationKeyboardMovement = {'Move left (strafe)': 'a'} 
+        configurationKeyboardMovement = {'Move right (strafe)': 'd'} 
+        configurationKeyboardMovement = {'Sprint (Move Quickly)': 'SHIFT'} 
+        configurationKeyboardMovement = {'Jump': 'SPACE'} 
+        configurationKeyboardMovement = {'Duck': 'CNTRL'} 
+
+        configurationKeyboardCombat = {'Primary attack': 'MOUSE1'}
+        configurationKeyboardCombat = {'Secondary attack': 'MOUSE2'}
+        configurationKeyboardCombat = {'Reload weapon': 'r'}
+
+        configurationKeyboard = {'MOVEMENT': configurationKeyboardMovement}
+        configurationKeyboard = {'COMBAT': configurationKeyboardCombat}
+
+        options.tab.set('Keyboard', configurationKeyboard)
+
+    </script>
+
+</body>
+</html>

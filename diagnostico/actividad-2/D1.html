@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let  equalizer =
+        {
+            preset: new Map(),
+            inputFile: "c:\\libvlc-go-examples\\"
+        }
+
+        let classicalAjustmentsDb = new Map();
+        classicalAjustmentsDb = {'Preamp': 12.0};
+        classicalAjustmentsDb = {'31.25 Hz': 0.0};
+        classicalAjustmentsDb = {'62.5 Hz': 0.0};
+        classicalAjustmentsDb = {'125 Hz': 0.0};
+        classicalAjustmentsDb = {'250 Hz': 0.0};
+        classicalAjustmentsDb = {'500 Hz': 0.0};
+        classicalAjustmentsDb = {'1 KHz': 0.0};
+        classicalAjustmentsDb = {'2 KHz': -7.2};
+        classicalAjustmentsDb = {'4 KHz': -7.2};
+        classicalAjustmentsDb = {'8 KHz': -7.2};
+        classicalAjustmentsDb = {'16 KHz': -9.6};
+
+        equalizer.preset.set('Classical', classicalAjustmentsDb)
+    
+    </script>
+
+</body>
+</html>

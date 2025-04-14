@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let inputdata0 = null
+        let inputdata1 = null
+        let inputdata2 = null
+
+        let compuertaA = {
+            input: new Map,
+            output: new Map
+        }
+        let compuertaB = {
+            input: new Map,
+            output: new Map
+        }
+        let compuertaC = {
+            input: new Map,
+            output: new Map
+        }
+        let compuertaD = {
+            input: new Map,
+            output: new Map
+        }
+        let compuertaE = {
+            input: new Map,
+            output: new Map
+        }
+        let compuertaF = {
+            input: new Map,
+            output: new Map
+        }
+
+        compuertaA.input.set('0', inputdata0)
+        compuertaA.input.set('1', inputdata1)
+        compuertaA.input.set('2', inputdata2)
+
+        compuertaB.input.set('0', inputdata1)
+        
+        compuertaC.input.set('0', inputdata2)
+        
+        compuertaD.input.set('0', compuertaB.output)
+        compuertaD.input.set('1', compuertaC.output)
+
+        compuertaE.input.set('0', inputdata0)
+        compuertaE.input.set('1', compuertaD.output)
+
+        compuertaF.input.set('0', compuertaA.output)
+        compuertaF.input.set('1', compuertaE.output)
+
+    </script>
+
+</body>
+</html>
