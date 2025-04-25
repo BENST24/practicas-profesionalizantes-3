@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #semaforo {
+        width: 100px;
+        background: #333;
+        padding: 10px;
+        border-radius: 20px;
+        margin: auto;
+        margin-top: 50px;
+        }
+
+        .light {
+        width: 60px;
+        height: 60px;
+        margin: 10px auto;
+        border-radius: 50%;
+        background: #111; /* Apagado */
+        transition: background 0.3s;
+        }
+
+        .red.on {
+        background: red;
+        }
+
+        .yellow.on {
+        background: yellow;
+        }
+
+        .green.on {
+        background: limegreen;
+        }
+</style>
+
+    </style>
+</head>
+<body>
+    <section id="semaforo">
+        <div class="light red" id="red"></div>
+        <div class="light yellow" id="yellow"></div>
+        <div class="light green" id="green"></div>
+      </section>
+</body>
+
+<script>
+
+    class Semaforo
+    {
+        constructor()
+        {
+            this._redLight = false;
+            this._yellowLight = false;
+            this._greenLight = false;
+        }
+
+        set redLight(value)
+        {
+            this._redLight = value;
+            document.getElementById("red").classList.toggle("on", value);
+        }
+
+        set yellowLight(value)
+        {
+            this._yellowLight = value;
+            document.getElementById("yellow").classList.toggle("on", value);
+        }
+
+        set greenLight(value)
+        {
+            this._greenLight = value;
+            document.getElementById("green").classList.toggle("on", value);
+        }
+
+        turnOnRedLight()
+        {
+            this.redLight = true;
+            console.log("luz roja prendida");
+        }
+
+        turnOffRedLight()
+        {
+            this.redLight = false;
+            console.log("luz roja apagada");
+        }
+
+        turnOnYellowLight()
+        {
+            this.yellowLight = true;
+            console.log("luz amarilla prendida");
+        }
+
+        turnOffYellowLight()
+        {
+            this.yellowLight = false;
+            console.log("luz amarrilla apagada");
+        }
+
+        turnOnGreenLight()
+        {
+            this.greenLight = true;
+            console.log("luz verde prendida");
+        }
+
+        turnOffGreenLight()
+        {
+            this.greenLight = false;
+            console.log("luz verde apagada");
+        }
+
+        synchronizeLights()
+        {
+            const self = this;
+
+            self.turnOnRedLight();
+
+            setTimeout(function() {
+                self.turnOnYellowLight();
+
+                setTimeout(function() {
+                    self.turnOffRedLight();
+                    self.turnOffYellowLight();
+                    self.turnOnGreenLight();
+
+                    setTimeout(function() {
+                        self.turnOffGreenLight();
+                        self.turnOnYellowLight();
+
+                        setTimeout(function() {
+                            self.turnOffYellowLight();
+                            self.synchronizeLights();
+                        }, 3000);
+                    }, 5000);
+                }, 3000);
+            }, 5000);
+        }
+    }
+
+    function main()
+{
+    const semaforo = new Semaforo();
+    semaforo.synchronizeLights();
+}
+
+
+window.onload = main;
+
+</script>
+
+</html>

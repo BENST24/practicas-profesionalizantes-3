@@ -1,0 +1,24 @@
+Objeto: Semaforo
+
+Propiedades/Atributos:
+
+Nombre			| Tipo de dato 	| Cte/Variable | Rango de valores posibles
+
+luz roja		 bool		      variable	      true/false
+luz amarilla	 bool		      variable	      true/false
+luz verdde		 bool		      variable	      true/false
+
+Comportamiento:
+
+Nombre				    | Parámetros/Tipo	| Retorno/Tipo
+
+prender luz roja	 	 --			          --
+apagar luz roja		 	 -- 		          --
+prender luz amarilla	 --			          --
+apagar luz amarilla      --			          --
+prender luz verde 	 	 --			          --
+apagar luz verde	 	 --			          --
+
+Revisión:
+
+sincronizar luces		 --			 --
