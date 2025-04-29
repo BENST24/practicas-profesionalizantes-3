@@ -1,0 +1,21 @@
+Objeto: Impresora
+
+Propiedades/Atributos:
+
+Nombre				    |Tipo de dato   |Cte/Variable   | Rango de valores posibles 
+
+cartucho de tinta        bool            variable        true/false
+carga del cartucho(ml)   double          variable        0.0 a 15.0
+limite de hojas          int             const           30
+hojas en la bandeja      int             variable        0 a 30
+encendida                bool            variable        true/false   
+
+Comportamiento:
+
+Nombre				| Parámetros/Tipo	            | Retorno/Tipo
+
+encender              --                              --
+apagar                --                              --
+imprimir              cantidad de hojas a imprimir    --
+agregar hojas         hojas                           --        
+cambiar cartucho      cartucho                        --

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    class Impresora
+    {
+        constructor()
+        {
+            this._cartridge = false;
+            this._loadCartridge = 0.0;
+            this._limitSheets = 30;
+            this._sheetsInTray = 0;
+            this._onOff = false;
+        }
+
+        get limitSheets()
+        {
+            return this._limitSheets;
+        }
+
+        get sheetsInTray()
+        {
+            return this._sheetsInTray;
+        }
+
+
+        set cartridge(value)
+        {
+            this._cartridge = value;
+        }
+
+        set loadCartridge(value)
+        {
+            this._loadCartridge = value;
+        }
+
+        set sheetsInTray(value)
+        {
+            if( value <= this._limitSheets && value >= 0)
+            {
+                this._sheetsInTray = value;
+            }
+            else
+            {
+                console.log("La cantidad de hojas debe ser menor a " +this._limitSheets+ " y menor a 0")
+            }
+        }
+
+        set onOff(value)
+        {
+            this._onOff = value;
+        }
+        
+        get onOff()
+        {
+            return this._onOff;
+        }
+
+        on()
+        {
+            this.on = true;
+        }
+        
+        off()
+        {
+            this.on = false;
+        }
+
+        changeCartridge(cartridge)
+        {
+            this.cartridge = false;
+            this.loadCartridge = 0.0;/*esto representaría la acción de sacar el cartucho, por lo cual la carga de la tinta pasa a ser 0 */
+
+            this.cartridge = true;
+            this.loadCartridge = 15.0; /* en este caso seria que el valor del cartucho que tenia(false) debería ser remplazado por 
+            true ya que se puso otro cartucho, el cual se supone que esta lleno, esto funcionaria en ese caso ideal de no ser así 
+            habría que tratar al cartucho como un objeto que compone la impresora para pedir la carga del cartucho y en ese caso tambien
+            se igualaria el atributo cartridge al nuevo cartuchi, motivo por el cual no se si debería tener un atributo "carga maxima del cartucho" 
+            debido a que no es una característica de la impresora */
+        }
+
+        addSheets(sheets)
+        {
+            if( this.sheetsInTray + sheets > this.limitSheets)
+            {
+                let leftoverSheets = this.sheetsInTray + sheets - this.limitSheets;
+                console.log("Sobran " + leftoverSheets + " hojas, Retirelas!")
+
+                this.sheetsInTray = this.limitSheets;
+            }
+            else
+            {
+                this.sheetsInTray = this.sheetsInTray + sheets;
+            }
+        }
+
+        print(amountSheets)
+        {
+            if(this.onOff)
+            {
+                if(amountSheets < this.sheetsInTray)
+                {
+                    this.sheetsInTray = this.sheetsInTray - amountSheets;
+                    if(amountSheets * 0.05 < this.loadCartridge)
+                    {
+                        this.loadCartridge = this.loadCartridge - amountSheets * 0.05;
+                    }
+                    else
+                    {
+                        console.log("No hay suficiente tinta para la cantidad de hojas que quiere imprimir, cambie el cartucho o imprima de a menor cantidad!")
+                    }
+                }
+                else
+                {
+                    console.log("No hay hojas suficientes para la cantiodad que quiere imprimir agregue mas hojas a la bandeja o imprima de a menor cantidad!")
+                }
+            }
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,16 @@
+Objeto: Impresora
+
+Propiedades/Atributos:
+
+Nombre				    |Tipo de dato   |Cte/Variable   | Rango de valores posibles 
+
+id                       int              conts           1 a <
+precio                   double           Variable        0 a <
+marca                    string           conts           --
+modelo                   string           conts           --
+
+Comportamiento:
+
+Nombre		| Parámetros/Tipo       | Retorno/Tipo
+
+-----------  ----------------------  --------------
