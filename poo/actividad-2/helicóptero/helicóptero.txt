@@ -1,0 +1,31 @@
+Objeto: Helicóptero
+
+Propiedades/Atributos:
+
+Nombre				                      |Tipo de dato   |Cte/Variable   | Rango de valores posibles 
+
+carga de misil Hellfire                    int             Variable          0 a 8 
+carga de cohetes Hydra                     int             Variable          0 a 36   
+carga de ametralladora                     int             Variable          0 a 1000
+vida                                       int             Variable          0 a 100  
+veces que puedes ser destruido             int             Variable          0 a 3
+
+Comportamiento:
+
+Nombre				       | Parámetros/Tipo	            | Retorno/Tipo
+
+prender 
+apagar
+girar a la Izquierda
+girar a la Derecha
+avanzar
+retroceder
+Disparar ametralladora
+Lanzar cohetes Hydra
+Lanzar misil Hellfire
+Reaparecer
+recoger municiones
+
+Revision:
+
+Evasión rápida
