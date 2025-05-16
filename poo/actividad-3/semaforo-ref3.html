@@ -9,28 +9,34 @@
 
 <style type="text/css">
 
-.luzroja
-{
-	background-color: red;
-	color:white;
+#semaforo {
+    width: 100px;
+    background: #333;
+    padding: 10px;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 50px;
 }
 
-.luzamarilla
-{
-	background-color: yellow;
-	color:black;
+.light {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: #111; /* Apagado */
+    transition: background 0.3s;
 }
 
-.luzverde
-{
-	background-color: green;
-	color:white;
+.red.on {
+    background: red;
 }
 
-.luzapagada
-{
-	background-color: white;
-	color:black;
+.yellow.on {
+    background: yellow;
+}
+
+.green.on {
+    background: limegreen;
 }
 
 
@@ -38,14 +44,16 @@
 
 <body>
 
-<button id="red">LuzRoja</button>
-<button id="yellow">LuzAmarilla</button>
-<button id="green">LuzVerde</button>
+<div id="semaforo">
+	<div id="redLight" class="light red"></div>
+	<div id="yellowLight" class="light yellow"></div>
+	<div id="greenLight" class="light green"></div>
+</div>
 
 <button id="on">Encender</button>
 <button id="off">Apagar</button>
 
-<canvas id="myCanvas" width="500" height="500"></canvas>
+<canvas id="myCanvas" width="1000" height="500"></canvas>
 
 </body>
 
@@ -86,6 +94,11 @@ class SemaphoreModel extends EventTarget
 
 		return state;
 	}
+
+	// getModelIsRunning()
+	// {
+	// 	return this.isRunning;
+	// }
 
 	setShutdownState()
 	{
@@ -211,23 +224,37 @@ class CircleModel extends EventTarget
 	update(canvas) 
 	{
 		let lightState = this._semaphoreModel.getModelState();
-		this.x += this.dx;
-		this.y += this.dy;
+		// let isRunning = this._semaphoreModel.getModelIsRunning(); codigo opcional para que los circulos se muevan con el semaforo apagado, en caso de usar descomentar "getModelIsRunning()"
 
-		if (lightState.green)
+		// if(!isRunning)
+		// {
+		// 	this.x += this.dx;
+		// 	this.y += this.dy;
+		// }
+
+		if(lightState.green)
 		{
-			// Si se sale por la derecha o izquierda
-			if (this.x - this.radius > canvas.width || this.x + this.radius < 0)  
-			{
-				this.x = this.startX;
-				this.y = this.startY;
-			}
+			this.x += this.dx;
 		}
 
-		// Si se sale por abajo o arriba
-		if (this.y - this.radius > canvas.height || this.y + this.radius < 0 || lightState.red) 
+		if(lightState.red)
+		{
+			this.y += this.dy;
+		}
+
+
+		// Si se sale por la derecha o izquierda
+		if (this.x - this.radius > canvas.width || this.x + this.radius < 0)  
 		{
 			this.x = this.startX;
+			// this.y = this.startY;
+		}
+
+
+		// Si se sale por abajo o arriba
+		if (this.y - this.radius > canvas.height || this.y + this.radius < 0) 
+		{
+			// this.x = this.startX;
 			this.y = this.startY;
 		}
 
@@ -251,23 +278,27 @@ class SemaphoreView
 	{
 		let state = this._model.getModelState();
 
-		document.getElementById('red').style.backgroundColor = 'white';
-		document.getElementById('yellow').style.backgroundColor = 'white';
-		document.getElementById('green').style.backgroundColor = 'white';
+		const red = document.getElementById('redLight');
+		const yellow = document.getElementById('yellowLight');
+		const green = document.getElementById('greenLight');
 
-		if ( state.red )
+		red.classList.remove('on');
+		yellow.classList.remove('on');
+		green.classList.remove('on');
+
+		if (state.red) 
 		{
-			document.getElementById('red').style.backgroundColor = 'red';
+			red.classList.add('on');
 		}
 
-		if ( state.yellow )
+		if (state.yellow) 
 		{
-			document.getElementById('yellow').style.backgroundColor = 'yellow';
+			yellow.classList.add('on');
 		}
 
-		if ( state.green )
+		if (state.green) 
 		{
-			document.getElementById('green').style.backgroundColor = 'green';
+			green.classList.add('on');
 		}
 
 	}
@@ -306,8 +337,8 @@ function main()
 
 	let semaphore = new SemaphoreModel();
 
-	const redModel = new CircleModel(250, 20, 20, 0, 2, semaphore);   // movimiento vertical
-	const blueModel = new CircleModel(20, 250, 20, 2, 0, semaphore);  // movimiento horizontal
+	const redModel = new CircleModel(250, 20, 20, 0, 1, semaphore);   // movimiento vertical
+	const blueModel = new CircleModel(20, 250, 20, 1, 0, semaphore);  // movimiento horizontal
 
 	const redView = new CircleView(redModel, canvas, "red");
 	const blueView = new CircleView(blueModel, canvas, "blue");
