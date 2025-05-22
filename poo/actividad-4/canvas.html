@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Rectangle</title>
+    <style>
+        body 
+        {
+            width: 50%;
+            height: 50%;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+class RectangleModel extends EventTarget
+{
+    constructor(x, y, width, height, angle = 0) 
+    {
+        super();
+
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.angle = angle;
+    }
+
+    rotate(radians) 
+    {
+        this.angle += radians;
+        this.dispatchEvent( new CustomEvent('changed') );
+    }
+
+    moveVertical(dy) 
+    {
+        this.y += dy;
+        this.dispatchEvent( new CustomEvent('changed') );
+    }
+
+    moveHorizontal(dx) 
+    {
+        this.x += dx;
+        this.dispatchEvent( new CustomEvent('changed') );
+    }
+
+    getCoordinateValues()
+    {
+        let coordinate = 
+		{
+            x: this.x,
+            y: this.y,
+            angle: this.angle
+		}
+
+		return coordinate;
+    }
+}
+
+class RectangleView 
+{
+    constructor(model, canvas) 
+    {
+        this.model = model;
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+
+        this.model.addEventListener( 'changed', ()=> this.draw() );
+    }
+
+    clearCanvas() 
+    {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    }
+
+    draw() 
+    {
+        let coordinate = this.model.getCoordinateValues();
+
+        this.clearCanvas();
+        this.ctx.save();
+        this.ctx.translate(coordinate.x, coordinate.y);
+        this.ctx.rotate(coordinate.angle);
+        this.ctx.fillStyle = 'blue';
+        this.ctx.fillRect(-this.model.width / 2, -this.model.height / 2, this.model.width, this.model.height);
+        this.ctx.restore();
+    }
+}
+
+function main() 
+{
+    const canvas = document.getElementById('myCanvas');
+    const rectModel = new RectangleModel(200, 200, 50, 25);
+    const rectView = new RectangleView(rectModel, canvas);
+
+    // Escuchar eventos del teclado
+    window.addEventListener("keydown", (event) => {
+        switch (event.key) {
+            case "ArrowLeft":
+                rectModel.rotate(-0.1); // Rotar a la izquierda
+                break;
+            case "ArrowRight":
+                rectModel.rotate(0.1); // Rotar a la derecha
+                break;
+            case "ArrowUp":
+                rectModel.moveVertical(-5); // Mover hacia arriba
+                break;
+            case "ArrowDown":
+                rectModel.moveVertical(5); // Mover hacia abajo
+                break;
+        }
+    });
+
+    rectView.draw();
+}
+
+window.onload = main;
+</script>
+
+</body>
+</html>
