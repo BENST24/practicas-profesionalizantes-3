@@ -20,12 +20,13 @@
 
 class RectangleModel
 {
-    constructor(x, y, width, height, angle = 0) 
+    constructor(x, y, width, height, color, angle = 0) 
     {
         this._x = x;
         this._y = y;
         this._width = width;
         this._height = height;
+        this._color = color;
         this._angle = angle;
     }
 
@@ -45,43 +46,48 @@ class RectangleModel
         ctx.save();
         ctx.translate(this._x, this._y);
         ctx.rotate(this._angle);
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = this._color;
         ctx.fillRect(-this._width / 2, -this._height / 2, this._width, this._height);
         ctx.restore();
     }
 }
 
-class RectangleController
-{
-    constructor(model)
+class RectangleController {
+    constructor(model, controls = {}) 
     {
         this.model = model;
 
-        this.keys = 
+        this.controls = 
         {
-            ArrowUp: false,
-            ArrowDown: false,
-            ArrowLeft: false,
-            ArrowRight: false
+            forward: controls.forward || "ArrowUp",
+            backward: controls.backward || "ArrowDown",
+            rotateLeft: controls.rotateLeft || "ArrowLeft",
+            rotateRight: controls.rotateRight || "ArrowRight"
         };
+
+        this.keys = {};
+        for (const action in this.controls) 
+        {
+            const key = this.controls[action];
+            this.keys[key] = false;
+        }
     }
 
-    init()
+    init() 
     {
-        window.addEventListener("keydown", this.onKeyDownPressed.bind(this))
-        window.addEventListener("keyup", this.onKeyDropUp.bind(this))
+        window.addEventListener("keydown", this.onKeyDownPressed.bind(this));
+        window.addEventListener("keyup", this.onKeyDropUp.bind(this));
     }
 
-    onKeyDownPressed( event )
+    onKeyDownPressed(event) 
     {
         if (event.key in this.keys) 
         {
             this.keys[event.key] = true;
         }
-
     }
 
-    onKeyDropUp()
+    onKeyDropUp(event) 
     {
         if (event.key in this.keys) 
         {
@@ -89,27 +95,47 @@ class RectangleController
         }
     }
 
-    moveControl() 
+    moveForward() 
     {
-
-        if (this.keys.ArrowLeft) 
-        {
-            this.model.rotate(-0.05);
-        }
-        if (this.keys.ArrowRight) 
-        {
-            this.model.rotate(0.05);
-        }
-        if (this.keys.ArrowUp) 
+        if (this.keys[this.controls.forward]) 
         {
             this.model.move(2);
         }
-        if (this.keys.ArrowDown) 
+    }
+
+    moveBackward() 
+    {
+        if (this.keys[this.controls.backward]) 
         {
             this.model.move(-2);
         }
     }
+
+    moveRotateLeft() 
+    {
+        if (this.keys[this.controls.rotateLeft]) 
+        {
+            this.model.rotate(-0.05);
+        }
+    }
+
+    moveRotateRight() 
+    {
+        if (this.keys[this.controls.rotateRight]) 
+        {
+            this.model.rotate(0.05);
+        }
+    }
+
+    moveControl() 
+    {
+        this.moveForward();
+        this.moveBackward();
+        this.moveRotateLeft();
+        this.moveRotateRight();
+    }
 }
+
 
 class GameEngineRenderer
 {
@@ -148,14 +174,26 @@ function main()
     const canvas = document.getElementById('myCanvas');
 
     let renderer = new GameEngineRenderer(canvas);
-    renderer.addObject( 'a', new RectangleModel(200, 200, 50, 25,));
+    renderer.addObject( 'a', new RectangleModel(200, 200, 50, 25, 'blue'));
+    renderer.addObject( 'b', new RectangleModel(200, 300, 50, 25, 'red'));
 
-    const rectControl = new RectangleController(renderer.getObject('a'));
+    const controllers = 
+    [
+        new RectangleController(renderer.getObject('a')), // usa flechas
+        new RectangleController(renderer.getObject('b'), {forward: 'w', backward: 's', rotateLeft: 'a', rotateRight: 'd'})
+    ];
 
-    rectControl.init();
+    for (const item of controllers.values() )
+    {
+        item.init();
+    }
 
     setInterval( renderer.render.bind(renderer), 16 );
-    setInterval( rectControl.moveControl.bind(rectControl), 16 );
+
+    for (const item of controllers.values() )
+    {
+        setInterval( item.moveControl.bind(item), 16 );
+    }
 }
 
 window.onload = main;
