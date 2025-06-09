@@ -1,36 +1,52 @@
-import { GameEngineRenderer } from "./views/renderer.js";
-import { RectangleModel } from "./models/figures.js";
-import { CircleModel } from "./models/figures.js";
-import { RectangleController } from "./controllers/controllers.js";
+import { MoveKeyController } from "./controllers/MoveKeyController.js";
+import { Manager_Figures } from "./models/Manager_figures.js";
+import { ApplicationUI } from "./views/ApplicationUI.js";
+import { InterfaceButtonController } from "./controllers/InterfaceButtonController.js";
+
+
 
 
 function main() 
 {
-    const canvas = document.getElementById('myCanvas');
+    let applicationui = new ApplicationUI();
+    let managerFigure = new Manager_Figures();
+    let interfaceController = new InterfaceButtonController(applicationui, managerFigure);
+    let controller = new MoveKeyController();
 
-    let renderer = new GameEngineRenderer(canvas);
-    renderer.addObject( 'a', new RectangleModel(200, 200, 50, 25, 'blue'));
-    renderer.addObject( 'b', new RectangleModel(200, 300, 50, 25, 'red'));
-    renderer.addObject( 'C', new CircleModel(200, 100, 25, 'red'));
+    // console.log(managerFigure.getSelectedFigure());
+    
+    interfaceController.init();
+    controller.init();
 
-    const controllers = 
-    [
-        new RectangleController(renderer.getObject('a')), // usa flechas
-        new RectangleController(renderer.getObject('b'), {forward: 'w', backward: 's', rotateLeft: 'a', rotateRight: 'd'}),
-        new RectangleController(renderer.getObject('C')), // usa flechas
-    ];
-
-    for (const item of controllers.values() )
+    // Preparar contexto
+    const context = 
     {
-        item.init();
-    }
+        manager: managerFigure,
+        controller: controller
+    };
 
-    setInterval( renderer.render.bind(renderer), 16 );
+    // Escuchar evento de selección sin lambda
+    applicationui.addEventListener('selectFigureRequest', onFigureSelected.bind(context));
+    
+    setInterval(applicationui.render.bind(applicationui, managerFigure.getFigures()), 16);
+    // setInterval(controller.chanchangeModelFigure.bind(controller, managerFigure.getSelectedFigure()), 16);
+    // setInterval(applicationui.updateTable.bind(applicationui, managerFigure.getFigures()), 16);
+    // console.log(managerFigure._figures);
+    setInterval( controller.moveControl.bind(controller), 16 );
 
-    for (const item of controllers.values() )
-    {
-        setInterval( item.moveControl.bind(item), 16 );
-    }
+    document.body.appendChild(applicationui);
+}
+
+function onFigureSelected(event) 
+{
+    const selectedId = event.detail.id;
+
+    // Cambiar figura seleccionada en el modelo
+    this.manager.chanchangeSelectedFigure(selectedId);
+
+    // Pasar figura al controlador de movimiento
+    const figure = this.manager.getSelectedFigure();
+    this.controller.chanchangeModelFigure(figure);
 }
 
 window.onload = main;
