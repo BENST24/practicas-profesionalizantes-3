@@ -1,6 +1,6 @@
-import { Figure } from "./figures.js";
-import { CircleModel } from "./figures.js";
 import { RectangleModel } from "./figures.js";
+import { CircleModel } from "./figures.js";
+import { TriangleModel } from "./figures.js";
 
 class Manager_Figures extends EventTarget
 {
@@ -27,6 +27,12 @@ class Manager_Figures extends EventTarget
     createRectangle(x, y, width, height, color, idName)
     {
         this._figures.set(idName,  new RectangleModel(x, y, width, height, color));
+        this.dispatchEvent( new CustomEvent('modelchanged') );
+    }
+
+    createTriangle(x, y, sideLength, color, idName)
+    {
+        this._figures.set(idName,  new TriangleModel(x, y, sideLength, color));
         this.dispatchEvent( new CustomEvent('modelchanged') );
     }
 

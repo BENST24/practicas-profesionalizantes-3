@@ -2,8 +2,8 @@ class Figure
 {
     constructor(x, y, color, angle = 0) 
     {
-        this._x = x;
-        this._y = y;
+        this._x = parseFloat(x);
+        this._y = parseFloat(y);
         this._color = color;
         this._angle = angle;
     }
@@ -26,8 +26,8 @@ class RectangleModel extends Figure
     {
         super(x, y, color)
 
-        this._width = width;
-        this._height = height;
+        this._width = parseFloat(width);
+        this._height = parseFloat(height);
 
     }
 
@@ -48,7 +48,7 @@ class CircleModel extends Figure
     {
         super(x, y, color)
 
-        this._radius = radius;
+        this._radius = parseFloat(radius);
     }
 
     draw(ctx) 
@@ -63,4 +63,30 @@ class CircleModel extends Figure
     }
 }
 
-export {Figure, RectangleModel, CircleModel};
+class TriangleModel extends Figure 
+{
+    constructor(x, y, sideLength, color) 
+    {
+        super(x, y, color);
+        this._sideLength = parseFloat(sideLength);
+    }
+
+    draw(ctx) 
+    {
+        const h = (Math.sqrt(3) / 2) * this._sideLength; // altura del triángulo
+
+        ctx.save();
+        ctx.translate(this._x, this._y);
+        ctx.rotate(this._angle);
+        ctx.beginPath();
+        ctx.moveTo(0, -h / 2); // vértice superior
+        ctx.lineTo(-this._sideLength / 2, h / 2); // vértice inferior izquierdo
+        ctx.lineTo(this._sideLength / 2, h / 2); // vértice inferior derecho
+        ctx.closePath();
+        ctx.fillStyle = this._color;
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+export {Figure, RectangleModel, CircleModel, TriangleModel};

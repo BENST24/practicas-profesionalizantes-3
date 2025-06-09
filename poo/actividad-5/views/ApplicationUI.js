@@ -170,6 +170,11 @@ class ApplicationUI extends HTMLElement
         {
             this.dispatchEvent( new CustomEvent('createCircleRequest') );
         }
+
+        this.btnTriangle.onclick = () => 
+        {
+            this.dispatchEvent(new CustomEvent('createTriangleRequest'));
+        };
     }
 
     handleRadioChange(event) 
@@ -216,7 +221,7 @@ class ApplicationUI extends HTMLElement
 
     static getDispatchedEvents()
     {
-        return ['createRectangleRequest', 'createCircleRequest', 'selectFigureRequest'];
+        return ['createRectangleRequest', 'createCircleRequest', 'createTriangleRequest', 'selectFigureRequest'];
     }
 
     getDrawingContext2D()
