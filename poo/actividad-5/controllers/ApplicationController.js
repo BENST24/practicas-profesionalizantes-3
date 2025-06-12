@@ -8,10 +8,10 @@ class ApplicationController
         this.modelFigure = null;
 
         this.keys = {
-            ArrowUp: false,
-            ArrowDown: false,
-            ArrowLeft: false,
-            ArrowRight: false
+            w: false,
+            s: false,
+            a: false,
+            d: false
         };
 
         this.updateTable = this.view.updateTable.bind(this.view, this.model.getFigures());
@@ -97,9 +97,9 @@ class ApplicationController
         }
     }
 
-        moveForward() 
+    moveForward() 
     {
-        if (this.modelFigure && this.keys.ArrowUp) 
+        if (this.modelFigure && this.keys.w) 
         {
             this.modelFigure.move(2);
         }
@@ -107,7 +107,7 @@ class ApplicationController
 
     moveBackward() 
     {
-        if (this.modelFigure && this.keys.ArrowDown) 
+        if (this.modelFigure && this.keys.s) 
         {
             this.modelFigure.move(-2);
         }
@@ -115,7 +115,7 @@ class ApplicationController
 
     moveRotateLeft() 
     {
-        if (this.modelFigure && this.keys.ArrowLeft) 
+        if (this.modelFigure && this.keys.a) 
         {
             this.modelFigure.rotate(-0.05);
         }
@@ -123,7 +123,7 @@ class ApplicationController
 
     moveRotateRight() 
     {
-        if (this.modelFigure && this.keys.ArrowRight) 
+        if (this.modelFigure && this.keys.d) 
         {
             this.modelFigure.rotate(0.05);
         }
