@@ -1,0 +1,21 @@
+Objeto:  Ventilador
+
+Propiedades/atributos:
+
+Nombre          |   Tipo de dato            | Cte/Variable          | Rango de variables posibles          | f(c)           
+blades_material     string                      const                   
+blades              int                         const                   1 a <
+speed               int                         variable                0 a 3
+diameter            double                      const               
+height              double                      const
+isOn                bool                        variable                true/false                      
+
+
+Comportamiento:
+
+Nombre          |   Parametro/Tipo          |   Retorno/Tipo
+
+increaseSpeed()
+lowerSpeed()
+turn_on()
+turn_off()

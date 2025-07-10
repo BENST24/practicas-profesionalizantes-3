@@ -1,0 +1,23 @@
+Objeto: Auto
+
+Propiedades/Atributos:
+
+Nombre			| Tipo de dato 	| Cte/Variable | Rango de valores posibles  | f(c)
+
+isOn                bool         cariable             true/false
+speed(km/h)         int             variable             0 ... 200 
+turnAngle           int             variable             60 ... 120 grados
+hand_brake          bool            variable             true/false
+
+
+Comportamiento:
+Nombre			    | Parámetros/Tipo		      | Retorno/Tipo
+
+turn_on()
+turn_off()
+accelerate()
+decelerate()
+turn_right()
+turn_left()
+activate_handbrake()
+release_handbrake()
